@@ -39,7 +39,16 @@ public class RoomService {
     // TODO (Zadanie 2): Utwórz nowy obiekt Room na podstawie CreateRoomRequest (available = true),
     // zapisz go w repozytorium i zwróć RoomResponse.
     public RoomResponse createRoom(CreateRoomRequest request) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj createRoom w Zadaniu 2");
+        Room room = new Room(
+                null,
+                request.name(),
+                request.building(),
+                request.floor(),
+                request.capacity(),
+                request.hasProjector(),
+                true
+        );
+        return RoomResponse.from(roomRepository.save(room));
     }
 
     // TODO (Zadanie 3): Zaktualizuj istniejącą salę o podanym ID danymi z UpdateRoomRequest.

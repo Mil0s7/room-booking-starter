@@ -1,5 +1,5 @@
 package pl.lab.roombooking.controller;
-
+import java.net.URI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +51,13 @@ public class RoomController {
     // - Odbierz @RequestBody CreateRoomRequest.
     // - Zwróć 201 Created wraz z nagłówkiem Location (/api/rooms/{id}) oraz ciałem RoomResponse.
     // - (Zadanie 6): Zwróć 400 Bad Request, gdy name jest puste lub capacity <= 0.
+    @PostMapping
+    @Operation(summary = "Tworzy nową salę")
+    public ResponseEntity<RoomResponse> createRoom(@RequestBody CreateRoomRequest request) {
+        RoomResponse created = roomService.createRoom(request);
+        URI location = URI.create("/api/rooms/" + created.id());
+        return ResponseEntity.created(location).body(created);
+    }
 
     // TODO (Zadanie 3): Dodaj endpoint PUT /api/rooms/{id}
     // - Odbierz @PathVariable Long id oraz @RequestBody UpdateRoomRequest.
