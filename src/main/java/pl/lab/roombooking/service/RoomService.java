@@ -33,7 +33,7 @@ public class RoomService {
 
     // TODO (Zadanie 1): Pobierz pojedynczą salę na podstawie ID i zmapuj na Optional<RoomResponse>.
     public Optional<RoomResponse> getRoomById(Long id) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj getRoomById w Zadaniu 1");
+        return roomRepository.findById(id).map(RoomResponse::from);
     }
 
     // TODO (Zadanie 2): Utwórz nowy obiekt Room na podstawie CreateRoomRequest (available = true),

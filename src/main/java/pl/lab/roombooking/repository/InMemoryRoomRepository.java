@@ -47,7 +47,8 @@ public class InMemoryRoomRepository {
     // TODO (Zadanie 1): Zaimplementuj wyszukiwanie sali po identyfikatorze.
     // Wskazówka: Optional.ofNullable(storage.get(id))
     public Optional<Room> findById(Long id) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj metodę findById w Zadaniu 1");
+    //    throw new UnsupportedOperationException("TODO: Zaimplementuj metodę findById w Zadaniu 1");
+        return Optional.ofNullable(storage.get(id));
     }
 
     // TODO (Zadanie 4): Zaimplementuj usuwanie sali po identyfikatorze.

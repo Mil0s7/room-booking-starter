@@ -40,6 +40,12 @@ public class RoomController {
     // TODO (Zadanie 1): Dodaj endpoint GET /api/rooms/{id}
     // - Zwróć 200 OK z obiektem RoomResponse, jeśli sala istnieje.
     // - Zwróć 404 Not Found, jeśli sala o podanym ID nie istnieje.
+    @GetMapping("/{id}")
+    public ResponseEntity<RoomResponse> getRoomById(@PathVariable Long id) {
+        return roomService.getRoomById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     // TODO (Zadanie 2): Dodaj endpoint POST /api/rooms
     // - Odbierz @RequestBody CreateRoomRequest.
