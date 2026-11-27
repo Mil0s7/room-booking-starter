@@ -72,4 +72,11 @@ public class RoomController {
 
     // TODO (Zadanie 4): Dodaj endpoint DELETE /api/rooms/{id}
     // - Zwróć 204 No Content po usunięciu lub 404 Not Found, jeśli sala nie istniała.
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Usuwa salę")
+    public ResponseEntity<Void> deleteRoom(@PathVariable Long id) {
+        return roomService.deleteRoom(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
+    }
 }

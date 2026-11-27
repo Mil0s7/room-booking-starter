@@ -67,7 +67,7 @@ public class RoomService {
 
     // TODO (Zadanie 4): Usuń salę o podanym ID, delegując operację do repozytorium.
     public boolean deleteRoom(Long id) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj deleteRoom w Zadaniu 4");
+        return roomRepository.deleteById(id);
     }
 
     // TODO (Zadanie 5): Rozbuduj pobieranie listy sal o opcjonalne filtrowanie

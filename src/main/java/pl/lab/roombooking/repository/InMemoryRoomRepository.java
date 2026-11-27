@@ -54,7 +54,7 @@ public class InMemoryRoomRepository {
     // TODO (Zadanie 4): Zaimplementuj usuwanie sali po identyfikatorze.
     // Metoda powinna zwrócić true, jeśli sala istniała i została usunięta, lub false w przeciwnym razie.
     public boolean deleteById(Long id) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj metodę deleteById w Zadaniu 4");
+        return storage.remove(id) != null;
     }
 
     public boolean existsById(Long id) {
