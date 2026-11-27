@@ -62,6 +62,13 @@ public class RoomController {
     // TODO (Zadanie 3): Dodaj endpoint PUT /api/rooms/{id}
     // - Odbierz @PathVariable Long id oraz @RequestBody UpdateRoomRequest.
     // - Zwróć 200 OK po aktualizacji lub 404 Not Found, jeśli sala nie istnieje.
+    @PutMapping("/{id}")
+    @Operation(summary = "Aktualizuje salę")
+    public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long id, @RequestBody UpdateRoomRequest request) {
+        return roomService.updateRoom(id, request)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     // TODO (Zadanie 4): Dodaj endpoint DELETE /api/rooms/{id}
     // - Zwróć 204 No Content po usunięciu lub 404 Not Found, jeśli sala nie istniała.

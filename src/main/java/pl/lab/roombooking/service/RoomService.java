@@ -54,7 +54,15 @@ public class RoomService {
     // TODO (Zadanie 3): Zaktualizuj istniejącą salę o podanym ID danymi z UpdateRoomRequest.
     // Jeśli sala nie istnieje, zwróć Optional.empty().
     public Optional<RoomResponse> updateRoom(Long id, UpdateRoomRequest request) {
-        throw new UnsupportedOperationException("TODO: Zaimplementuj updateRoom w Zadaniu 3");
+        return roomRepository.findById(id).map(room -> {
+            room.setName(request.name());
+            room.setBuilding(request.building());
+            room.setFloor(request.floor());
+            room.setCapacity(request.capacity());
+            room.setHasProjector(request.hasProjector());
+            room.setAvailable(request.available());
+            return RoomResponse.from(roomRepository.save(room));
+        });
     }
 
     // TODO (Zadanie 4): Usuń salę o podanym ID, delegując operację do repozytorium.
