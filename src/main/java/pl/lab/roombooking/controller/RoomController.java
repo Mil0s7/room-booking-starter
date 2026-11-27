@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lab.roombooking.dto.CreateRoomRequest;
 import pl.lab.roombooking.dto.RoomResponse;
+import pl.lab.roombooking.dto.UpdateAvailabilityRequest;
 import pl.lab.roombooking.dto.UpdateRoomRequest;
 import pl.lab.roombooking.service.RoomService;
 
@@ -72,6 +73,16 @@ public class RoomController {
             return ResponseEntity.badRequest().build();
         }
         return roomService.updateRoom(id, request)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Zadanie dodatkowe: częściowa aktualizacja (tylko dostępność)
+    @PatchMapping("/{id}/availability")
+    @Operation(summary = "Zmienia dostępność sali")
+    public ResponseEntity<RoomResponse> updateAvailability(@PathVariable Long id,
+                                                           @RequestBody UpdateAvailabilityRequest request) {
+        return roomService.updateAvailability(id, request.available())
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -65,6 +65,14 @@ public class RoomService {
         });
     }
 
+    // Zadanie dodatkowe: zmiana wyłącznie pola available
+    public Optional<RoomResponse> updateAvailability(Long id, boolean available) {
+        return roomRepository.findById(id).map(room -> {
+            room.setAvailable(available);
+            return RoomResponse.from(roomRepository.save(room));
+        });
+    }
+
     // TODO (Zadanie 4): Usuń salę o podanym ID, delegując operację do repozytorium.
     public boolean deleteRoom(Long id) {
         return roomRepository.deleteById(id);
