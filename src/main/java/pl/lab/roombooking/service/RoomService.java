@@ -73,6 +73,9 @@ public class RoomService {
     // TODO (Zadanie 5): Rozbuduj pobieranie listy sal o opcjonalne filtrowanie
     // po parametrach minCapacity oraz hasProjector (gdy parametr == null, nie filtruj po nim).
     public List<RoomResponse> searchRooms(Integer minCapacity, Boolean hasProjector) {
-        return getAllRooms();
+        return getAllRooms().stream()
+                .filter(room -> minCapacity == null || room.capacity() >= minCapacity)
+                .filter(room -> hasProjector == null || room.hasProjector() == hasProjector)
+                .toList();
     }
 }
