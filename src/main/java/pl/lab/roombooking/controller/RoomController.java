@@ -54,6 +54,9 @@ public class RoomController {
     @PostMapping
     @Operation(summary = "Tworzy nową salę")
     public ResponseEntity<RoomResponse> createRoom(@RequestBody CreateRoomRequest request) {
+        if (isInvalid(request.name(), request.building(), request.capacity())) {
+            return ResponseEntity.badRequest().build();
+        }
         RoomResponse created = roomService.createRoom(request);
         URI location = URI.create("/api/rooms/" + created.id());
         return ResponseEntity.created(location).body(created);
@@ -65,6 +68,9 @@ public class RoomController {
     @PutMapping("/{id}")
     @Operation(summary = "Aktualizuje salę")
     public ResponseEntity<RoomResponse> updateRoom(@PathVariable Long id, @RequestBody UpdateRoomRequest request) {
+        if (isInvalid(request.name(), request.building(), request.capacity())) {
+            return ResponseEntity.badRequest().build();
+        }
         return roomService.updateRoom(id, request)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -78,5 +84,12 @@ public class RoomController {
         return roomService.deleteRoom(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();
+    }
+
+    // Zadanie 6: wspólna walidacja dla POST i PUT
+    private static boolean isInvalid(String name, String building, int capacity) {
+        return name == null || name.isBlank()
+                || building == null || building.isBlank()
+                || capacity <= 0;
     }
 }
